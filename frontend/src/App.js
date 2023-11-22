@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: "/",
     element: <Login/>,
   },
   {
