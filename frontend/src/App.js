@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
     element: <div>
     <Navbar/>
     <Interviews/>
+    <Footer/>
+    </div>,
+  },
+  {
+    path: "/profile",
+    element: <div>
+    <Navbar/>
+    <Profile/>
     <Footer/>
     </div>,
   }

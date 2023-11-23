@@ -1,25 +1,39 @@
-.navbar {
+header {
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: center;
     height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.navbar ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5rem;
-}
-
-.navbar li {
+  }
+  
+  .nav-links {
     list-style: none;
-}
-
-@media only screen and (max-width: 700px) {
-
-    .navbar ul {
-        gap: 2rem;
-    }
-
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li {
+    margin: 0 15px; /* Adjust the spacing between each link */
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: black; /* Choose your desired text color */
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: purple; /* Choose your desired hover color */
+  }
+  
