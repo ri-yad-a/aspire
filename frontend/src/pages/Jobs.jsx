@@ -4,7 +4,7 @@ import '../styles/Jobs.css';
 
 const Jobs = () => {
   return (
-    <div>
+    <div className='jobs'>
       My wishlist for jobs
     </div>
   )

@@ -4,7 +4,7 @@ import '../styles/Interviews.css';
 
 const Interviews = () => {
   return (
-    <div>
+    <div className='interviews'>
       My Interviews and interview notes
     </div>
   )

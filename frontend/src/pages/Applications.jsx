@@ -4,7 +4,7 @@ import '../styles/Applications.css';
 
 const Applications = () => {
   return (
-    <div>
+    <div className='applications'>
       My Applications
     </div>
   )

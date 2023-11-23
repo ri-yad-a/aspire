@@ -64,3 +64,22 @@
   font-size: 12px;
   text-align: center;
 }
+
+@media only screen and (max-width: 700px) {
+  .login-signup {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .intro-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .auth {
+    min-height: 500px;
+    max-height: 600px;    
+  }
+}
