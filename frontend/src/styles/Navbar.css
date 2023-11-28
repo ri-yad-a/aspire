@@ -1,39 +1,47 @@
 header {
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: center;
-    height: 100px;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-links li {
-    margin: 0 15px; /* Adjust the spacing between each link */
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: black; /* Choose your desired text color */
-    font-weight: bold;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-links a:hover {
-    color: purple; /* Choose your desired hover color */
-  }
-  
+  text-align: center;
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+
+.navbar-logo {
+  padding: 20px;
+}
+
+.navbar-profile {
+  padding: 20px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0px;
+}
+
+.nav-links li {
+  margin: 0 80px; /* Adjust the spacing between each link */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black; /* Choose your desired text color */
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: purple; /* Choose your desired hover color */
+}
