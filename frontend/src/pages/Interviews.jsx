@@ -17,6 +17,19 @@ function Interviews() {
       notes: "This is the main page of the website",
       status: "accepted",
     },
+    // {
+    //   jobTitle: "Software Engineer Intern 2024",
+    //   company: "Google",
+    //   jobDescription: "This is the main page of the website",
+    //   dateUploaded: "02-16-2004",
+    //   status: "accepted",
+    // },
+    // {
+    //   jobTitle: "Software Engineer Intern 2024",
+    //   company: "Google",
+    //   documents: "Link to documents",
+    //   status: "accepted",
+    // },
   ]);
   const [rowToEdit, setRowToEdit] = useState(null);
 
@@ -44,7 +57,7 @@ function Interviews() {
 
   return (
     <div className="interviews">
-      <InterviewsTable rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} />
+      <InterviewsTable rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} type={"interviews"}/>
       <button onClick={() => setModalOpen(true)} className="btn">
         Add
       </button>
@@ -56,6 +69,7 @@ function Interviews() {
           }}
           onSubmit={handleSubmit}
           defaultValue={rowToEdit !== null && rows[rowToEdit]}
+          type={"interviews"}
         />
       )}
     </div>
