@@ -1,8 +1,8 @@
 import React from 'react';
 import '../index.css';
 import '../styles/Interviews.css';
-import InterviewsTable from '../pages/InterviewsTable';
-import InterviewsModal from '../pages/InterviewsModal';
+import Table from './Table';
+import Modal from './Modal';
 import { useState } from "react";
 
 
@@ -16,20 +16,7 @@ function Interviews() {
       date: "02-16-2004",
       notes: "This is the main page of the website",
       status: "accepted",
-    },
-    // {
-    //   jobTitle: "Software Engineer Intern 2024",
-    //   company: "Google",
-    //   jobDescription: "This is the main page of the website",
-    //   dateUploaded: "02-16-2004",
-    //   status: "accepted",
-    // },
-    // {
-    //   jobTitle: "Software Engineer Intern 2024",
-    //   company: "Google",
-    //   documents: "Link to documents",
-    //   status: "accepted",
-    // },
+    }
   ]);
   const [rowToEdit, setRowToEdit] = useState(null);
 
@@ -57,12 +44,12 @@ function Interviews() {
 
   return (
     <div className="interviews">
-      <InterviewsTable rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} type={"interviews"}/>
+      <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} type={"interviews"}/>
       <button onClick={() => setModalOpen(true)} className="btn">
         Add
       </button>
       {modalOpen && (
-        <InterviewsModal
+        <Modal
           closeModal={() => {
             setModalOpen(false);
             setRowToEdit(null);
