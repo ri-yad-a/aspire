@@ -8,6 +8,7 @@ import { useState } from 'react';
 const Profile = () => {
 
   const [isEditable, setIsEditable] = useState(true);
+  const buttonClass = isEditable ? "edit-button" : "save-button";
 
   const handleButtonClick = (e) => {
     e.preventDefault();
@@ -32,19 +33,6 @@ const Profile = () => {
       professionField.readOnly = true;
     }
   }
-
-    // var nameField = document.getElementById("name-field");
-    // if (nameField.readOnly === true) {
-    //   
-    // } else {
-    //   
-    // }
-    // var button = document.getElementById("editBtn");
-    // if (button.innerHTML === "Edit Information") {
-    //   button.innerHTML = "Cancel";
-    // } else {
-    //   button.innerHTML = "Edit Information";
-    // }
 
   return (
     <div className="profile">
@@ -98,12 +86,14 @@ const Profile = () => {
             // onChange={handleChange}
           />
         </div>
-          <button onClick={handleButtonClick}>{isEditable ? "Edit Information" : "Save Information"}</button>
+          <button id={buttonClass} onClick={handleButtonClick}>{isEditable ? "Edit Information" : "Save Information"}</button>
       </form>
     </div>
     </div>
     
   );
 }
+
+// notes: change panel style, add profile picture, do not allow empty fields
 
 export default Profile;
