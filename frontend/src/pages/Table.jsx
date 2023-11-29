@@ -1,6 +1,6 @@
 import React from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
-import "../styles/InterviewsTable.css";
+import "../styles/Table.css";
 
 const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
     if (type === "interviews") {

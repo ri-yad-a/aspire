@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "../styles/InterviewsModal.css";
+import "../styles/Modal.css";
 
 const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
   let initialState;
