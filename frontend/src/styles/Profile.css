@@ -40,6 +40,7 @@
     border: 1px solid gray;
     border-radius: 10px;
     font-size: 15px;
+    height: 15px;
 }
 .left-pane form button {
     padding: 10px;
@@ -49,6 +50,8 @@
     cursor: pointer;
     color: white;
     font-size: 15px;
+    flex-grow: 1;
+    margin: 5px;
 }
 .left-pane form p {
     background-color: white;
@@ -62,13 +65,20 @@
     text-align: center;
 }
 
+#name-field {
+    font-size: 30px;
+}
+
 .aspiring {
+    display: flex;
     background-color: white;
-    display: inline-flex;
+    align-items: center;
+}
+
+.aspiring p {
+    margin-right: 10px;
 }
 
 .aspiring input {
-    padding: 10px;
-    height: 20px
-}
-
+    flex-grow: 1;
+  }
