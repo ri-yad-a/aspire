@@ -66,6 +66,9 @@
 
 .pdf-container {
     background-color: white;
+    display: block;
+    color: black;
+    color-scheme: white;
 }
 
 .left-pane h1 {

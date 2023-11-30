@@ -132,7 +132,7 @@ const Profile = () => {
         <input type="file" accept='application/pdf' onChange={handlePDFChange}/>
         <button type='submit'>Upload</button>
         <div className="pdf-container">
-          <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js'>
+        <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js'>
             {viewPDF && <>
               <Viewer fileUrl={viewPDF} plugins={[newplugin]} />
             </>}
@@ -142,6 +142,7 @@ const Profile = () => {
 
         </div>
       </form>
+
     </div>
 
     </div>
