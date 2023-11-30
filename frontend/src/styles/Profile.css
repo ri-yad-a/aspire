@@ -3,6 +3,7 @@
     justify-content: left;
     gap: 1rem;
     padding-left: 1rem;
+    flex-direction: column;
 }
 
 .left-pane {
@@ -13,7 +14,58 @@
     padding-top: 100px;
     padding-left:5%;
     background-color: #fff7de;
-    width: 45%;
+    width: 87.5%;
+}
+
+.right-pane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 100px;
+    padding-left:5%;
+    background-color: #fff7de;
+    width: 87.5%;
+}
+
+
+.right-pane form {
+    display: flex;
+    flex-direction: column;
+    padding: 70px;
+    background-color: white;
+    width: 100%;
+    gap: 20px;
+    border: 0.5px black solid;
+    box-shadow: 3px 3px;
+    border-radius: 5rem;
+    font-size: 15px;
+}
+
+.right-pane form input {
+    background-color: white;
+    padding: 10px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 10px;
+    font-size: 15px;
+    height: 15px;
+}
+
+.right-pane form button {
+    padding: 10px;
+    border: none;
+    background-color: #8100e3;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    flex-grow: 1;
+    margin: 5px;
+} 
+
+.pdf-container {
+    background-color: white;
 }
 
 .left-pane h1 {
