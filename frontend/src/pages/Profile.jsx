@@ -129,17 +129,17 @@ const Profile = () => {
     <div className='right-pane'>
       <h1>Documents</h1>
       <form onSubmit={handleSubmit}>
+        <p>Select Document to view here.</p>
         <input type="file" accept='application/pdf' onChange={handlePDFChange}/>
-        <button type='submit'>Upload</button>
+        <button id='upload-button' type='submit'>Upload</button>
         <div className="pdf-container">
-        <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js'>
+        <Worker workerUrl='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js'>
             {viewPDF && <>
-              <Viewer fileUrl={viewPDF} plugins={[newplugin]} />
+              <Viewer theme='auto' fileUrl={viewPDF} plugins={[newplugin]} />
             </>}
             {!viewPDF && <>Please select a PDF to view.</>}
             
           </Worker>
-
         </div>
       </form>
 
