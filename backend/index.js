@@ -2,6 +2,7 @@ import express from "express";
 import postRoutes from "./routes/posts.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/posts.js";
+import { db } from "./dbConnect.js";
 
 const app = express();
 
