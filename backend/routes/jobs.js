@@ -1,6 +1,5 @@
 import express from "express";
-import {} from "../controllers/jobs.js";
-import { getJobs, getJob, updateJob, deleteJob, uploadJob } from "../controllers/job";
+import { getJobs, getJob, updateJob, deleteJob, uploadJob } from "../controllers/job.js";
 const router = express.Router();
 
 // general view of all jobs
@@ -8,7 +7,7 @@ router.get("/", getJobs);
 // view specific job
 router.get("/:id", getJob);
 // update specific job
-router.update("/:id", updateJob);
+router.put("/:id", updateJob);
 // delete specific job
 router.delete("/:id", deleteJob);
 // new job upload

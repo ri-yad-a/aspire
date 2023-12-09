@@ -2,6 +2,7 @@ import express from "express";
 import postRoutes from "./routes/posts.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/posts.js";
+import jobRoutes from "./routes/jobs.js";
 import { db } from "./dbConnect.js";
 import cookieParser from "cookie-parser";
 
@@ -12,6 +13,7 @@ app.use(cookieParser());
 app.use("/api/posts", postRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/jobs", jobRoutes);
 
 app.get("/", (req,res)=>{
     res.json("Hello, this is the backend");

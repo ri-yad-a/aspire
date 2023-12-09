@@ -1,6 +1,13 @@
+import { db } from "../dbConnect.js";
+
 // general view of all jobs
 export const getJobs = (req, res) => {
-    res.send("Jobs");
+    const q = "SELECT * FROM jobs WHERE email = ?";
+
+    db.query(q, [req.body.email], (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json(data);
+      });
 };
 // view specific job
 export const getJob = (req, res) => {
