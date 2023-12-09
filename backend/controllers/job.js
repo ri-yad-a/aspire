@@ -4,7 +4,7 @@ import { db } from "../dbConnect.js";
 export const getJobs = (req, res) => {
     const q = "SELECT * FROM jobs WHERE email = ?";
 
-    db.query(q, [req.body.email], (err, data) => {
+    db.query(q, req.query.email, (err, data) => {
         if (err) return res.status(500).json(err);
         return res.status(200).json(data);
       });

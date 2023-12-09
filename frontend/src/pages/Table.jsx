@@ -77,7 +77,7 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
                   <td>{row.jobTitle}</td>
                   <td>{row.company}</td>
                   <td>{row.jobDescription}</td>
-                  <td>{row.dateUploaded}</td>
+                  <td>{row.dateUploaded.substring(0, 10)}</td>
                   <td>
                     <span className={`label label-${row.status}`}>
                       {statusText}
