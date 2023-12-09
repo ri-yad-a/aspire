@@ -7,10 +7,10 @@ router.get("/", getJobs);
 // view specific job
 router.get("/:id", getJob);
 // update specific job
-router.put("/:id", updateJob);
+router.put("/", updateJob);
 // delete specific job
-router.delete("/:id", deleteJob);
+router.delete("/", deleteJob);
 // new job upload
-router.post("/:id", uploadJob);
+router.post("/", uploadJob);
 
 export default router;
