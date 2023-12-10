@@ -48,7 +48,7 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
         formState.jobTitle &&
         formState.company &&
         formState.jobDescription &&
-        formState.dateUploaded &&
+        formState.dateUploaded.substring(0, 10) &&
         formState.status) ||
       (type === "applications" &&
         formState.jobTitle &&
@@ -177,7 +177,7 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
               <input
                 name="dateUploaded"
                 onChange={handleChange}
-                value={formState.dateUploaded}
+                value={formState.dateUploaded.substring(0, 10)}
               />
             </div>
             <div className="form-group">
