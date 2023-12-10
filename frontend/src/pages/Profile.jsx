@@ -159,7 +159,7 @@ const Profile = () => {
             placeholder="Profession"
             name="profession"
             readOnly
-            // onChange={handleChange}
+            onChange={handleChange}
           />
         </div>
         <div className="aspiring">
