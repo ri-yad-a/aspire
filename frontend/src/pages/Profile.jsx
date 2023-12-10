@@ -18,6 +18,7 @@ const Profile = () => {
     lname: "",
     username: "",
     password: "",
+    email: currentUser.currentUser.email,
   });
   const fetchData = async () => {
     try {
@@ -31,6 +32,15 @@ const Profile = () => {
       console.error(err.response);
     }
   };
+
+  const updateInfo = async () => {
+    try {
+      const res = await axios.put("/users", inputs);
+    } catch (err){
+      console.error(err.response);
+    }
+  };
+
   // initial fetch
   useEffect(() => {
     fetchData();
@@ -56,7 +66,6 @@ const Profile = () => {
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(inputs);
   };
 
 
@@ -70,23 +79,23 @@ const Profile = () => {
     var fnameField = document.getElementById("fname-field");
     var lnameField = document.getElementById("lname-field");
     var passwordField = document.getElementById("password-field");
-    var emailField = document.getElementById("email-field"); 
     var usernameField = document.getElementById("username-field");
     var professionField = document.getElementById("profession-field");
     if (isEditable) {
       fnameField.readOnly = false;
       lnameField.readOnly = false;
       passwordField.readOnly = false;
-      // emailField.readOnly = false;
       usernameField.readOnly = false;
       professionField.readOnly = false;
     } else {
       fnameField.readOnly = true;
       lnameField.readOnly = true;
       passwordField.readOnly = true;
-      // emailField.readOnly = true;
       usernameField.readOnly = true;
       professionField.readOnly = true;
+
+      // update database
+      updateInfo();
     }
   }
 
