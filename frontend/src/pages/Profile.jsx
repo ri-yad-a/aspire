@@ -8,6 +8,8 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
+import Table from './Table';
+import Modal from './Modal';
 
 const Profile = () => {
 
@@ -111,6 +113,8 @@ const Profile = () => {
         reader.readAsDataURL(selectedFile);
         reader.onload = (e) => {
           setPDFFile(e.target.result);
+          console.log(new Date().toLocaleString() + "");
+          
         }
       }
       else {
@@ -119,15 +123,79 @@ const Profile = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const pdfInputs = {
+    email: currentUser.currentUser.email,
+    title: "sus",
+    filename: "random",
+    file: pdfFile,
+    description: "sus",
+    type: "resume",
+    uploadDate: "",
+    uploadTime: "",
+  }
+  const uploadPDF = async () => {
+    try {
+      var dateString = new Date().toLocaleDateString();
+      // Split the date string into an array of components
+      var dateComponents = dateString.split('/'); // Adjust the delimiter based on your locale
+      // Rearrange the components to the desired format (YYYY-MM-DD)
+      pdfInputs.uploadDate = dateComponents[2] + '-' + dateComponents[0].padStart(2, '0') + '-' + dateComponents[1].padStart(2, '0');
+      var timeString = new Date().toLocaleTimeString();
+      // Split the time string into an array of components
+      var timeComponents = timeString.split(" ")[0].split(':');
+      // Rearrange the components to the desired format (HH:mm:ss)
+      pdfInputs.uploadTime = timeComponents[0].padStart(2, '0') + ':' + timeComponents[1].padStart(2, '0') + ':' + timeComponents[2].padStart(2, '0');
+      const res = await axios.post("/users/upload", pdfInputs);
+    } catch (err){
+      console.error(err.response);
+    }
+  }
+
+  const handlePDFSubmit = (e) => {
     e.preventDefault();
     if (pdfFile !== null) {
+      uploadPDF();
       setViewPDF(pdfFile);
     }
     else {
       setViewPDF(null);
     }
   }
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [rows, setRows] = useState([
+    {
+      jobTitle: "Software Engineer Intern 2024",
+      company: "Google",
+      time: "10:45am",
+      date: "02-16-2004",
+      notes: "This is the main page of the website",
+      status: "accepted",
+    }
+  ]);
+  const [rowToEdit, setRowToEdit] = useState(null);
+
+  const handleDeleteRow = (targetIndex) => {
+    setRows(rows.filter((_, idx) => idx !== targetIndex));
+  };
+
+  const handleEditRow = (idx) => {
+    setRowToEdit(idx);
+
+    setModalOpen(true);
+  };
+
+  const handleSubmit = (newRow) => {
+    rowToEdit === null
+      ? setRows([...rows, newRow])
+      : setRows(
+          rows.map((currRow, idx) => {
+            if (idx !== rowToEdit) return currRow;
+
+            return newRow;
+          })
+        );
+  };
 
   const newplugin = defaultLayoutPlugin();
 
@@ -198,7 +266,24 @@ const Profile = () => {
 
     <div className='right-pane'>
       <h1>Documents</h1>
-      <form onSubmit={handleSubmit}>
+
+      <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} type={"documents"}/>
+      <button onClick={() => setModalOpen(true)} className="btn">
+        Add
+      </button>
+      {modalOpen && (
+        <Modal
+          closeModal={() => {
+            setModalOpen(false);
+            setRowToEdit(null);
+          }}
+          onSubmit={handleSubmit}
+          defaultValue={rowToEdit !== null && rows[rowToEdit]}
+          type={"documents"}
+        />
+      )}
+
+      <form onSubmit={handlePDFSubmit}>
         <p>Select Document to view here.</p>
         <input type="file" accept='application/pdf' onChange={handlePDFChange}/>
         <button id='upload-button' type='submit'>Upload</button>

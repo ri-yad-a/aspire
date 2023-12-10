@@ -101,7 +101,7 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
           </tbody>
         </table>
       </div>);
-    } else {
+    } else if (type === "applications") {
         return(<div className="table-wrapper">
         <table className="table">
           <thead>
@@ -110,6 +110,51 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
               <th>Company</th>
               <th className="expand">Documents</th>
               <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows && rows.map((row, idx) => {
+              const statusText =
+                row.status.charAt(0).toUpperCase() + row.status.slice(1);
+  
+              return (
+                <tr key={idx}>
+                  <td>{row.jobTitle}</td>
+                  <td>{row.company}</td>
+                  <td>{row.documents}</td>
+                  <td>
+                    <span className={`label label-${row.status}`}>
+                      {statusText}
+                    </span>
+                  </td>
+                  <td className="fit">
+                    <span className="actions">
+                      <BsFillTrashFill
+                        className="delete-btn"
+                        onClick={() => deleteRow(idx)}
+                      />
+                      <BsFillPencilFill
+                        className="edit-btn"
+                        onClick={() => editRow(idx)}
+                      />
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>);
+    } else if (type === "documents") {
+              return(<div className="table-wrapper">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Document Name</th>
+              <th>File Name</th>
+              <th className="expand">Description</th>
+              <th>Type</th>
               <th>Actions</th>
             </tr>
           </thead>

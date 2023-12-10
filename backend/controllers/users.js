@@ -19,3 +19,13 @@ export const updateUserInfo = (req, res) => {
         return res.status(200).json("Information edited.");
     });
 };
+
+// upload pdf file
+export const uploadPDF = (req, res) => {
+    const q = "INSERT INTO resumes (`email`,`title`,`filename`,`file`,`description`,`type`,`uploadDate`,`uploadTime`) VALUES (?)";
+    const values = [req.body.email, req.body.title, req.body.filename, req.body.file, req.body.description, req.body.type, req.body.uploadDate, req.body.uploadTime];
+    db.query(q, [values], (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json("Resume uploaded.");
+    });
+};
