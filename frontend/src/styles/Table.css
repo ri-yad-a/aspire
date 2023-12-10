@@ -1,5 +1,6 @@
 .table-wrapper {
     width: 100%;
+    background-color: white;
   }
   
   .table {
@@ -11,7 +12,7 @@
     border-radius: 10px;
     white-space: nowrap;
     width: 100em;
-    max-width: 80%;
+    max-width: 90%;
     margin: auto;
     table-layout: auto;
     overflow-x: auto;
@@ -25,6 +26,7 @@
   .table th,
   .table td {
     padding: 0.8rem;
+    background-color: white;
   }
   
   .table td {
@@ -62,6 +64,18 @@
   .label-rejected {
     background-color: #d9534f;
   }
+
+  .label-resume {
+    background-color: #42a942;
+  }
+
+  .label-cover-letter {
+    background-color: #707afa;
+  }
+
+  .label-transcript {
+    background-color: grey;
+  }
   
   .actions {
     display: flex;
@@ -73,5 +87,22 @@
   }
   
   .delete-btn {
+    background-color: white;
     color: #e10d05;
+    padding: 0.5rem;
+  }
+
+  .edit-btn {
+    background-color: white;
+    padding: 0.5rem;
+  }
+
+  .upload-btn {
+    background-color: white;
+    padding: 0.5rem;
+  }
+
+  .download-btn {
+    background-color: white;
+    padding: 0.5rem;
   }

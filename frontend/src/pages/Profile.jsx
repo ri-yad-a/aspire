@@ -132,6 +132,7 @@ const Profile = () => {
     type: "resume",
     uploadDate: "",
     uploadTime: "",
+    id: 0,
   }
   const uploadPDF = async () => {
     try {
@@ -151,38 +152,52 @@ const Profile = () => {
     }
   }
 
+  const viewRowPDF = async (idx) => {
+    setPDFFile(rows[idx].file)
+    setViewPDF(pdfFile);
+  }
+
+  const downloadPDF = async (idx) => {
+    // download pdf
+  }
+
   const handlePDFSubmit = (e) => {
     e.preventDefault();
     if (pdfFile !== null) {
-      uploadPDF();
-      setViewPDF(pdfFile);
+      //uploadPDF();
+
+      const newRow = {
+        jobTitle: "Software Engineer Intern 2024",
+        company: "Google",
+        time: "10:45am",
+        date: "02-16-2004",
+        notes: "This is the main page of the website",
+        status: "accepted",
+        file: pdfFile,
+      }
+
+      handleSubmit(newRow);
+
     }
     else {
       setViewPDF(null);
     }
   }
 
-  const [modalOpen, setModalOpen] = useState(false);
   const [rows, setRows] = useState([
     {
-      jobTitle: "Software Engineer Intern 2024",
-      company: "Google",
-      time: "10:45am",
-      date: "02-16-2004",
-      notes: "This is the main page of the website",
-      status: "accepted",
+      title: "",
+      fileName: "Google",
+      description: "10:45am",
+      uploadDate: "",
+      status: "cover-letter",
+      file: pdfFile,
     }
   ]);
   const [rowToEdit, setRowToEdit] = useState(null);
 
   const handleDeleteRow = (targetIndex) => {
     setRows(rows.filter((_, idx) => idx !== targetIndex));
-  };
-
-  const handleEditRow = (idx) => {
-    setRowToEdit(idx);
-
-    setModalOpen(true);
   };
 
   const handleSubmit = (newRow) => {
@@ -266,25 +281,9 @@ const Profile = () => {
 
     <div className='right-pane'>
       <h1>Documents</h1>
-
-      <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} type={"documents"}/>
-      <button onClick={() => setModalOpen(true)} className="btn">
-        Add
-      </button>
-      {modalOpen && (
-        <Modal
-          closeModal={() => {
-            setModalOpen(false);
-            setRowToEdit(null);
-          }}
-          onSubmit={handleSubmit}
-          defaultValue={rowToEdit !== null && rows[rowToEdit]}
-          type={"documents"}
-        />
-      )}
-
       <form onSubmit={handlePDFSubmit}>
         <p>Select Document to view here.</p>
+        <Table rows={rows} deleteRow={handleDeleteRow} type={"documents"} viewRowPDF={viewRowPDF} downloadRowPDF={downloadPDF}/>
         <input type="file" accept='application/pdf' onChange={handlePDFChange}/>
         <button id='upload-button' type='submit'>Upload</button>
         <div className="pdf-container">

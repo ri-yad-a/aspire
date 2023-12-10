@@ -1,8 +1,8 @@
 import React from "react";
-import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import { BsFillTrashFill, BsFillPencilFill, BsCloudUploadFill, BsCloudDownloadFill } from "react-icons/bs";
 import "../styles/Table.css";
 
-const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
+const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadRowPDF }) => {
     if (type === "interviews") {
         return (
             <div className="table-wrapper">
@@ -154,6 +154,7 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
               <th>Document Name</th>
               <th>File Name</th>
               <th className="expand">Description</th>
+              <th>Date Uploaded</th>
               <th>Type</th>
               <th>Actions</th>
             </tr>
@@ -165,9 +166,10 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
   
               return (
                 <tr key={idx}>
-                  <td>{row.jobTitle}</td>
-                  <td>{row.company}</td>
-                  <td>{row.documents}</td>
+                  <td>{row.title}</td>
+                  <td>{row.fileName}</td>
+                  <td>{row.description}</td>
+                  <td>{row.uploadDate}</td>
                   <td>
                     <span className={`label label-${row.status}`}>
                       {statusText}
@@ -182,6 +184,14 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
                       <BsFillPencilFill
                         className="edit-btn"
                         onClick={() => editRow(idx)}
+                      />
+                      <BsCloudUploadFill
+                        className="upload-btn"
+                        onClick={() => viewRowPDF(idx)}
+                      />
+                      <BsCloudDownloadFill 
+                        className="download-btn"
+                        onClick={() => downloadRowPDF(idx)}
                       />
                     </span>
                   </td>
