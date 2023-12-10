@@ -1,7 +1,7 @@
 import express from "express";
 import postRoutes from "./routes/posts.js";
 import authRoutes from "./routes/auth.js";
-import userRoutes from "./routes/posts.js";
+import userRoutes from "./routes/users.js";
 import jobRoutes from "./routes/jobs.js";
 import { db } from "./dbConnect.js";
 import cookieParser from "cookie-parser";
