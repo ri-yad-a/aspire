@@ -1,4 +1,8 @@
-.table-wrapper {
+  .table-wrapper {
+    width: 100%;
+  }
+
+  .table-wrapper1 {
     width: 100%;
     background-color: white;
   }
