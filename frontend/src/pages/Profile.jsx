@@ -190,6 +190,19 @@ const Profile = () => {
     if (pdfFile !== null) {
       uploadPDF();
       handleSubmit(pdfInputs);
+      fetchPDFData();
+      var filenameField = document.getElementById("filename-field");
+      var sizeField = document.getElementById("size-field");
+      var descriptionField = document.getElementById("description-field");
+      var titleField = document.getElementById("title-field");
+      var fileField = document.getElementById("fileInput");
+      var typeField = document.getElementById("type");
+      filenameField.value = "";
+      sizeField.value = "";
+      descriptionField.value = "";
+      titleField.value = "";
+      fileField.value = "";
+      typeField.value = "resume";
     }
     else {
       setViewPDF(null);
