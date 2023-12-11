@@ -109,8 +109,9 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
               <th>Job Title</th>
               <th>Company</th>
               <th className="expand">Notes</th>
-              <th>Date Applied</th>
+              <th>Date Uploaded</th>
               <th>Status</th>
+              <th>Documents</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -121,14 +122,16 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
   
               return (
                 <tr key={idx}>
-                  <td>{row.jobTitle}</td>
+                  <td>{row.title}</td>
                   <td>{row.company}</td>
-                  <td>{row.documents}</td>
+                  <td>{row.notes}</td>
+                  <td>{row.dateUploaded}</td>
                   <td>
                     <span className={`label label-${row.status}`}>
                       {statusText}
                     </span>
                   </td>
+                  <td>{row.document_name}</td>
                   <td className="fit">
                     <span className="actions">
                       <BsFillTrashFill

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext, useEffect } from "react";
+import axios from 'axios';
 import "../styles/Modal.css";
+import { AuthContext } from "../context/authContext";
 
 const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
   let initialState;
+
+  const {currentUser} = useContext(AuthContext);
 
   if (type === "interviews") {
     initialState = defaultValue || {
@@ -24,10 +27,12 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
     };
   } else {
     initialState = defaultValue || {
-      jobTitle: "",
+      title: "",
       company: "",
-      documents: "",
+      notes: "",
+      dateUploaded: "",
       status: "accepted",
+      document_name: "None",
     };
   }
 
@@ -51,11 +56,12 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
         formState.dateUploaded.substring(0, 10) &&
         formState.status) ||
       (type === "applications" &&
-        formState.jobTitle &&
+        formState.title &&
         formState.company &&
         formState.notes &&
-        formState.dateApplied.substring(0, 10) &&
-        formState.status)
+        formState.dateUploaded.substring(0, 10) &&
+        formState.status &&
+        formState.document_name)
     ) {
       setErrors("");
       return true;
@@ -84,6 +90,41 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
 
     closeModal();
   };
+
+  const setDocumentsDropdown = async (email) => {
+    // Access the <select> element using the ref
+    const selectElement = document.getElementById('document_name');
+    try {
+      const res = await axios.get("/applications/documents", {
+        params: {
+          email: email,
+        }
+      });
+      // Manipulate the options or perform other actions
+      if (selectElement) {
+        for (let i = 0; i < res.data.length; i++) {
+          for (let j = 0; j < selectElement.length; j++) {
+            if (selectElement.options[j].value === res.data[i].filename) {
+              selectElement.remove(j);
+            }
+          };
+          const newOption = document.createElement('option');
+          newOption.value = res.data[i].filename;
+          newOption.text = res.data[i].filename;
+          selectElement.add(newOption);
+        }
+    }
+      
+    } catch (err){
+      console.error(err.response);
+    }
+    
+  };
+
+  useEffect(() => {
+    setDocumentsDropdown(currentUser.email);
+  }, [currentUser.email])
+  
 
   if (type === "interviews") {
     return(<div
@@ -221,11 +262,11 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
           <div className="modal">
             <form>
               <div className="form-group">
-                <label htmlFor="jobTitle">Job Title</label>
+                <label htmlFor="jobTitle">Title</label>
                 <input
-                  name="jobTitle"
+                  name="title"
                   onChange={handleChange}
-                  value={formState.jobTitle}
+                  value={formState.title}
                 />
               </div>
               <div className="form-group">
@@ -245,11 +286,11 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="dateApplied">Date Applied</label>
+                <label htmlFor="dateUploaded">Date Uploaded</label>
                 <input
-                  name="dateApplied"
+                  name="dateUploaded"
                   onChange={handleChange}
-                  value={formState.dateApplied.substring(0, 10)}
+                  value={formState.dateUploaded}
                 />
               </div>
               <div className="form-group">
@@ -263,6 +304,17 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
                   <option value="pending">Pending</option>
                   <option value="upcoming">Upcoming</option>
                   <option value="rejected">Rejected</option>
+                </select>
+                </div>
+                <div className="form-group">
+                <label htmlFor="document_name">Choose Document</label>
+                <select
+                  name="document_name"
+                  onChange={handleChange}
+                  value={formState.document_name}
+                  id="document_name"
+                >
+                  <option value="none">None</option>
                 </select>
                 </div>
                 {errors && (

@@ -18,14 +18,14 @@ function Applications() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("/applicaitons", {
+      const res = await axios.get("/applications", {
         params: {
           email: currentUser.email,
         }
       });
       setApplications(res.data);
     } catch (err){
-      console.error(err.message);
+      console.error(err.response);
     } 
   };
 
@@ -93,6 +93,7 @@ function Applications() {
           })
         );
   };
+  
 
   return (
     <div className="interviews">

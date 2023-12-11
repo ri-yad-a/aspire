@@ -3,6 +3,7 @@ import postRoutes from "./routes/posts.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/posts.js";
 import jobRoutes from "./routes/jobs.js";
+import applicationRoutes from "./routes/applications.js";
 import { db } from "./dbConnect.js";
 import cookieParser from "cookie-parser";
 
