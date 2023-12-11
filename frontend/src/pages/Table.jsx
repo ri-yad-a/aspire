@@ -101,14 +101,15 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type }) => {
           </tbody>
         </table>
       </div>);
-    } else {
+    } else if (type === "applications"){
         return(<div className="table-wrapper">
         <table className="table">
           <thead>
             <tr>
               <th>Job Title</th>
               <th>Company</th>
-              <th className="expand">Documents</th>
+              <th className="expand">Notes</th>
+              <th>Date Applied</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
