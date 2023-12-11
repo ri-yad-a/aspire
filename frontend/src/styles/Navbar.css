@@ -19,6 +19,8 @@ header {
 
 .navbar-profile {
   padding: 20px;
+  display: flex;
+  gap: 2rem;
 }
 
 .nav-links {
