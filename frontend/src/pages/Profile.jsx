@@ -199,7 +199,16 @@ const Profile = () => {
   const [rows, setRows] = useState([]);
   const [rowToEdit, setRowToEdit] = useState(null);
 
-  const handleDeleteRow = (targetIndex) => {
+  const handleDeleteRow = async (targetIndex) => {
+    try {
+      const res1 = await axios.delete("/users/upload", {
+        params: {
+          id: rows[targetIndex].id,
+        }
+      });
+    } catch (err2) {
+      console.error(err2.response.data);
+    }
     setRows(rows.filter((_, idx) => idx !== targetIndex));
   };
 

@@ -1,5 +1,5 @@
 import express from "express";
-import { getPDFs, getUserInfo, updateUserInfo, uploadPDF } from "../controllers/users.js";
+import { deletePDF, getPDFs, getUserInfo, updateUserInfo, uploadPDF } from "../controllers/users.js";
 
 const router = express.Router();
 
@@ -11,5 +11,6 @@ router.put("/", updateUserInfo);
 // upload pdf file
 router.post("/upload", uploadPDF)
 router.get("/upload", getPDFs);
+router.delete("/upload", deletePDF);
 
 export default router;

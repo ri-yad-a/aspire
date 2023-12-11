@@ -167,7 +167,7 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
               return (
                 <tr key={idx}>
                   <td>{row.title}</td>
-                  <td>{row.fileName}</td>
+                  <td>{row.filename}</td>
                   <td>{row.description}</td>
                   <td>{row.uploadDate}</td>
                   <td>
