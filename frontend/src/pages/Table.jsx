@@ -108,8 +108,10 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
             <tr>
               <th>Job Title</th>
               <th>Company</th>
-              <th className="expand">Documents</th>
+              <th className="expand">Notes</th>
+              <th>Date Uploaded</th>
               <th>Status</th>
+              <th>Documents</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -120,14 +122,16 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
   
               return (
                 <tr key={idx}>
-                  <td>{row.jobTitle}</td>
+                  <td>{row.title}</td>
                   <td>{row.company}</td>
-                  <td>{row.documents}</td>
+                  <td>{row.notes}</td>
+                  <td>{row.dateUploaded}</td>
                   <td>
                     <span className={`label label-${row.status}`}>
                       {statusText}
                     </span>
                   </td>
+                  <td>{row.document_name}</td>
                   <td className="fit">
                     <span className="actions">
                       <BsFillTrashFill
