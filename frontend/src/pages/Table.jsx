@@ -147,11 +147,11 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
         </table>
       </div>);
     } else if (type === "documents") {
-              return(<div className="table-wrapper">
+              return(<div className="table-wrapper1">
         <table className="table">
           <thead>
             <tr>
-              <th>Document Name</th>
+              <th>Document Title</th>
               <th>File Name</th>
               <th className="expand">Description</th>
               <th>Date Uploaded</th>
@@ -162,7 +162,7 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
           <tbody>
             {rows && rows.map((row, idx) => {
               const statusText =
-                row.status.charAt(0).toUpperCase() + row.status.slice(1);
+                row.type.charAt(0).toUpperCase() + row.type.slice(1);
   
               return (
                 <tr key={idx}>
@@ -171,7 +171,7 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
                   <td>{row.description}</td>
                   <td>{row.uploadDate}</td>
                   <td>
-                    <span className={`label label-${row.status}`}>
+                    <span className={`label label-${row.type}`}>
                       {statusText}
                     </span>
                   </td>
@@ -180,10 +180,6 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
                       <BsFillTrashFill
                         className="delete-btn"
                         onClick={() => deleteRow(idx)}
-                      />
-                      <BsFillPencilFill
-                        className="edit-btn"
-                        onClick={() => editRow(idx)}
                       />
                       <BsCloudUploadFill
                         className="upload-btn"

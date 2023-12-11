@@ -78,6 +78,10 @@
   }
 
   .label-transcript {
+    background-color: #e4d615;
+  }
+
+  .label-other {
     background-color: grey;
   }
   

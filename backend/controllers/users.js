@@ -22,10 +22,19 @@ export const updateUserInfo = (req, res) => {
 
 // upload pdf file
 export const uploadPDF = (req, res) => {
-    const q = "INSERT INTO resumes (`email`,`title`,`filename`,`file`,`description`,`type`,`uploadDate`,`uploadTime`) VALUES (?)";
+    const q = "INSERT INTO documents (`email`,`title`,`filename`,`file`,`description`,`type`,`uploadDate`,`uploadTime`) VALUES (?)";
     const values = [req.body.email, req.body.title, req.body.filename, req.body.file, req.body.description, req.body.type, req.body.uploadDate, req.body.uploadTime];
     db.query(q, [values], (err, data) => {
         if (err) return res.status(500).json(err);
         return res.status(200).json("Resume uploaded.");
+    });
+};
+
+// get all pdf files
+export const getPDFs = (req, res) => {
+    const q = "SELECT id, email, title, filename, file, size, description, type, uploadTime, DATE_FORMAT(uploadDate, '%Y-%m-%d') AS uploadDate FROM documents WHERE email = ?";
+    db.query(q, req.query.email, (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json(data);
     });
 };

@@ -9,7 +9,6 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
 import Table from './Table';
-import Modal from './Modal';
 
 const Profile = () => {
 
@@ -35,6 +34,19 @@ const Profile = () => {
     }
   };
 
+  const fetchPDFData = async () => {
+    try {
+      const res = await axios.get("/users/upload", {
+        params: {
+          email: currentUser.currentUser.email,
+        }
+      });
+      setRows(res.data);
+    } catch (err){
+      console.error(err.response);
+    }
+  }
+
   const updateInfo = async () => {
     try {
       const res = await axios.put("/users", inputs);
@@ -46,6 +58,7 @@ const Profile = () => {
   // initial fetch
   useEffect(() => {
     fetchData();
+    fetchPDFData();
   },[currentUser.currentUser.email])
 
   // Use another useEffect to watch for changes in the userInfo state
@@ -70,6 +83,10 @@ const Profile = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handlePDFInfoChange = (e) => {
+    setPDFInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log(pdfInputs);
+  };
 
   const [isEditable, setIsEditable] = useState(true);
   const buttonClass = isEditable ? "edit-button" : "save-button";
@@ -114,7 +131,12 @@ const Profile = () => {
         reader.onload = (e) => {
           setPDFFile(e.target.result);
           console.log(new Date().toLocaleString() + "");
-          
+          var filenameField = document.getElementById("filename-field");
+          var sizeField = document.getElementById("size-field");
+          filenameField.value = selectedFile.name;
+          sizeField.value = selectedFile.size + " bytes";
+          pdfInputs.filename = selectedFile.name;
+          pdfInputs.size = selectedFile.size + " bytes";
         }
       }
       else {
@@ -123,17 +145,18 @@ const Profile = () => {
     }
   }
 
-  const pdfInputs = {
+  const [pdfInputs, setPDFInputs] = useState({
     email: currentUser.currentUser.email,
-    title: "sus",
-    filename: "random",
+    title: "",
+    filename: "",
     file: pdfFile,
-    description: "sus",
+    description: "",
     type: "resume",
     uploadDate: "",
     uploadTime: "",
     id: 0,
-  }
+    size: "",
+  });
   const uploadPDF = async () => {
     try {
       var dateString = new Date().toLocaleDateString();
@@ -146,6 +169,7 @@ const Profile = () => {
       var timeComponents = timeString.split(" ")[0].split(':');
       // Rearrange the components to the desired format (HH:mm:ss)
       pdfInputs.uploadTime = timeComponents[0].padStart(2, '0') + ':' + timeComponents[1].padStart(2, '0') + ':' + timeComponents[2].padStart(2, '0');
+      pdfInputs.file = pdfFile;
       const res = await axios.post("/users/upload", pdfInputs);
     } catch (err){
       console.error(err.response);
@@ -164,36 +188,15 @@ const Profile = () => {
   const handlePDFSubmit = (e) => {
     e.preventDefault();
     if (pdfFile !== null) {
-      //uploadPDF();
-
-      const newRow = {
-        jobTitle: "Software Engineer Intern 2024",
-        company: "Google",
-        time: "10:45am",
-        date: "02-16-2004",
-        notes: "This is the main page of the website",
-        status: "accepted",
-        file: pdfFile,
-      }
-
-      handleSubmit(newRow);
-
+      uploadPDF();
+      handleSubmit(pdfInputs);
     }
     else {
       setViewPDF(null);
     }
   }
 
-  const [rows, setRows] = useState([
-    {
-      title: "",
-      fileName: "Google",
-      description: "10:45am",
-      uploadDate: "",
-      status: "cover-letter",
-      file: pdfFile,
-    }
-  ]);
+  const [rows, setRows] = useState([]);
   const [rowToEdit, setRowToEdit] = useState(null);
 
   const handleDeleteRow = (targetIndex) => {
@@ -284,8 +287,43 @@ const Profile = () => {
       <form onSubmit={handlePDFSubmit}>
         <p>Select Document to view here.</p>
         <Table rows={rows} deleteRow={handleDeleteRow} type={"documents"} viewRowPDF={viewRowPDF} downloadRowPDF={downloadPDF}/>
-        <input type="file" accept='application/pdf' onChange={handlePDFChange}/>
-        <button id='upload-button' type='submit'>Upload</button>
+        <p>Upload New Document here.</p>
+        <input type="file" accept='application/pdf' onChange={handlePDFChange} id="fileInput" required/>
+        <input id="title-field"
+          type="text"
+          placeholder="Document Title"
+          name="title"
+          required
+          onChange={handlePDFInfoChange}
+        />
+        <input id="filename-field"
+          type="text"
+          placeholder="File Name"
+          name="filename"
+          readOnly
+          required
+        />
+        <input id="size-field"
+          type="text"
+          placeholder="File Size"
+          name="size"
+          readOnly
+          required
+        />
+        <textarea id="description-field"
+          type="text"
+          placeholder="Description"
+          name="description"
+          required
+          onChange={handlePDFInfoChange}
+        />
+        <select name="type" id="type" onChange={handlePDFInfoChange}>
+          <option value="resume">Resume</option>
+          <option value="cover-letter">Cover Letter</option>
+          <option value="transcript">Transcript</option>
+          <option value="other">Other</option>
+        </select>
+        <button id='upload-button' type='submit'>Add Document</button>
         <div className="pdf-container">
         <Worker workerUrl='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js'>
             {viewPDF && <>
