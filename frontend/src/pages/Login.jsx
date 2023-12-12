@@ -32,6 +32,12 @@ const Login = () => {
     }
   };
 
+  const linkStyle = {
+    margin: "5px",
+    backgroundColor: 'white',
+    color: 'black',
+  };
+
   return (
     <div className="login-signup">
     <div className="intro-pane">
@@ -40,25 +46,25 @@ const Login = () => {
     </div>
     <div className="auth">
       <h1>Login</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           required
           type="text"
-          placeholder="email"
+          placeholder="Email"
           name="email"
           onChange={handleChange}
         />
         <input
           required
           type="password"
-          placeholder="password"
+          placeholder="Password"
           name="password"
           onChange={handleChange}
         />
-        <button onClick={handleSubmit}>Login</button>
+        <button type="submit">Login</button>
         {err && <p>{err}</p>}
         <span>
-          Don't have an account yet? <Link to="/signUp">Sign Up</Link>
+          Don't have an account yet? <Link style={linkStyle} to="/signUp">Sign Up</Link>
         </span>
       </form>
     </div>

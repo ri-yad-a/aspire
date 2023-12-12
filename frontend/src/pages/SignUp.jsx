@@ -7,8 +7,8 @@ import axios from "axios";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
-    fname:"as",
-    lname:"as",
+    fname:"",
+    lname:"",
     username: "",
     email: "",
     password: "",
@@ -32,6 +32,12 @@ const Register = () => {
     }
   };
 
+  const linkStyle = {
+    margin: "5px",
+    backgroundColor: 'white',
+    color: 'black',
+  };
+
   return (
     <div className="login-signup">
     <div className="intro-pane">
@@ -40,32 +46,46 @@ const Register = () => {
     </div>
     <div className="auth">
       <h1>Register</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
+      <input
+          required
+          type="text"
+          placeholder="First Name"
+          name="fname"
+          onChange={handleChange}
+        />
         <input
           required
           type="text"
-          placeholder="username"
+          placeholder="Last Name"
+          name="lname"
+          onChange={handleChange}
+        />
+        <input
+          required
+          type="text"
+          placeholder="Username"
           name="username"
           onChange={handleChange}
         />
         <input
           required
           type="email"
-          placeholder="email"
+          placeholder="Email"
           name="email"
           onChange={handleChange}
         />
         <input
           required
           type="password"
-          placeholder="password"
+          placeholder="Password"
           name="password"
           onChange={handleChange}
         />
-        <button onClick={handleSubmit}>Register</button>
+        <button type="submit">Register</button>
         {err && <p>{err}</p>}
         <span>
-          Do you have an account? <Link to="/">Login</Link>
+          Do you have an account? <Link style={linkStyle} to="/">Login</Link>
         </span>
       </form>
     </div>
