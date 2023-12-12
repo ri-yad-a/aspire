@@ -177,12 +177,39 @@ const Profile = () => {
   }
 
   const viewRowPDF = async (idx) => {
-    setPDFFile(rows[idx].file)
-    setViewPDF(pdfFile);
-  }
+    try {
+      const response = await axios.get("/users/pdf", {
+        params: {
+          id: rows[idx].id,
+        },
+      });
+      setPDFFile(response.data[0].file);
+      setViewPDF(response.data[0].file);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
 
   const downloadPDF = async (idx) => {
-    // download pdf
+    try {
+      const response = await axios.get("/users/pdf", {
+        params: {
+          id: rows[idx].id,
+        },
+      });
+      console.log(response.data[0].file)
+      var link = document.createElement("a");
+      // If you don't know the name or want to use
+      // the webserver default set name = ''
+      link.setAttribute('download', rows[idx].filename);
+      link.href = response.data[0].file;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const handlePDFSubmit = (e) => {

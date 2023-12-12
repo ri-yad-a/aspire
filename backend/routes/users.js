@@ -1,5 +1,5 @@
 import express from "express";
-import { deletePDF, getPDFs, getUserInfo, updateUserInfo, uploadPDF } from "../controllers/users.js";
+import { deletePDF, getPDF, getPDFs, getUserInfo, updateUserInfo, uploadPDF } from "../controllers/users.js";
 
 const router = express.Router();
 
@@ -12,5 +12,8 @@ router.put("/", updateUserInfo);
 router.post("/upload", uploadPDF)
 router.get("/upload", getPDFs);
 router.delete("/upload", deletePDF);
+
+// get specific pdf file
+router.get("/pdf", getPDF);
 
 export default router;
