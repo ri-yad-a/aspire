@@ -9,7 +9,6 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
 import Table from './Table';
-import fileDownload from 'js-file-download';
 
 const Profile = () => {
 
@@ -200,7 +199,14 @@ const Profile = () => {
         },
       });
       console.log(response.data[0].file)
-      fileDownload(response.data[0].file, rows[idx].filename);
+      var link = document.createElement("a");
+      // If you don't know the name or want to use
+      // the webserver default set name = ''
+      link.setAttribute('download', rows[idx].filename);
+      link.href = response.data[0].file;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
     } catch (error) {
       console.error(error);
     }
