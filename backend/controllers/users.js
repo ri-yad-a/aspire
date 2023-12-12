@@ -47,3 +47,12 @@ export const deletePDF = (req, res) => {
         return res.status(200).json("Document deleted successfully.");
     });
 };
+
+// get specific pdf file
+export const getPDF = (req, res) => {
+    const q = "SELECT file FROM documents WHERE id = ?";
+    db.query(q, req.query.id, (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json(data);
+    });
+};

@@ -178,9 +178,20 @@ const Profile = () => {
   }
 
   const viewRowPDF = async (idx) => {
-    setPDFFile(rows[idx].file)
-    setViewPDF(pdfFile);
-  }
+    try {
+      const response = await axios.get("/users/pdf", {
+        params: {
+          id: rows[idx].id,
+        },
+      });
+      setPDFFile(response.data[0].file);
+      setViewPDF(response.data[0].file);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  
 
   const downloadPDF = async (idx) => {
     fileDownload(rows[idx].file, rows[idx].filename);
