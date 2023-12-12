@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../index.css';
-import '../styles/Interviews.css';
+import '../styles/Applications.css';
 import Table from './Table';
 import Modal from './Modal';
 import { useState, useContext } from "react";
