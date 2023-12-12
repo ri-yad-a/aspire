@@ -17,10 +17,23 @@ header {
   padding: 20px;
 }
 
-.navbar-profile {
+.navbar-last {
   padding: 20px;
   display: flex;
   gap: 2rem;
+}
+
+.profile-btn,
+.logout-btn {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.profile-btn a {
+  text-decoration: none;
+  /* background-color: #8100e3; */
+  color: black;
+  cursor: pointer;
 }
 
 .nav-links {
@@ -28,22 +41,26 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
-  padding: 0px;
+  /* margin: 0;
+  padding: 0px; */
 }
 
 .nav-links li {
-  margin: 0 80px; /* Adjust the spacing between each link */
+  padding: 10px 20px;
 }
 
 .nav-links a {
+  border-radius: 10px;
+  margin: 10px 80px;
+  padding: 10px 10px;
   text-decoration: none;
   color: black; /* Choose your desired text color */
   font-weight: bold;
   font-size: 16px;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: purple; /* Choose your desired hover color */
+  background-color: #8100e3;
+  color: white;
 }
