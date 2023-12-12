@@ -191,10 +191,19 @@ const Profile = () => {
     }
   };
   
-  
 
   const downloadPDF = async (idx) => {
-    fileDownload(rows[idx].file, rows[idx].filename);
+    try {
+      const response = await axios.get("/users/pdf", {
+        params: {
+          id: rows[idx].id,
+        },
+      });
+      console.log(response.data[0].file)
+      fileDownload(response.data[0].file, rows[idx].filename);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const handlePDFSubmit = (e) => {
