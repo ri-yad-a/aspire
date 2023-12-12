@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../index.css';
-import '../styles/Interviews.css';
+import '../styles/Jobs.css';
 import Table from './Table';
 import Modal from './Modal';
 import { useState, useContext } from "react";
@@ -97,7 +97,8 @@ function Jobs() {
   };
 
   return (
-    <div className="interviews">
+    <div className="jobs">
+      <h1 className="welcome">{currentUser.username}'s Jobs</h1>
       <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} type={"jobs"}/>
       <button onClick={() => setModalOpen(true)} className="btn">
         Add

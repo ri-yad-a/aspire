@@ -17,6 +17,10 @@
     background-color: white;
     width: 25em;
   }
+
+  .modal form {
+    background-color: white;
+  }
   
   .modal .btn {
     display: block;
@@ -24,6 +28,7 @@
   }
   
   .form-group {
+    background-color: white;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
@@ -32,6 +37,7 @@
   .form-group input,
   .form-group textarea,
   .form-group select {
+    background-color: white;
     border: 1px solid black;
     border-radius: 0.3rem;
     padding: 0.3rem;
@@ -39,6 +45,7 @@
   }
   
   .form-group label {
+    background-color: white;
     margin-bottom: 0.2rem;
   }
   
