@@ -3,7 +3,7 @@ import { db } from "../dbConnect.js";
 // general view of all interviews
 export const getInterviews = (req, res) => {
   const q =
-    "SELECT id, email, company, time, DATE_FORMAT(date, '%Y-%m-%d') AS date, application_id, status, jobTitle, notes FROM interviews WHERE email = ?";
+    "SELECT id, email, company, time, DATE_FORMAT(date, '%Y-%m-%d') AS date, status, jobTitle, notes FROM interviews WHERE email = ?";
   db.query(q, req.query.email, (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);

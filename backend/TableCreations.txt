@@ -1,4 +1,15 @@
-CREATE TABLE `jobs` (
+
+CREATE TABLE `aspiredb`.`users` (
+  `fname` varchar(320) DEFAULT NULL,
+  `lname` varchar(300) DEFAULT NULL,
+  `username` varchar(300) NOT NULL,
+  `email` varchar(300) NOT NULL,
+  `password` varchar(300) NOT NULL,
+  `profession` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `aspiredb`.`jobs` (
   `id` int NOT NULL AUTO_INCREMENT,
   `company` varchar(300) NOT NULL,
   `email` varchar(300) NOT NULL,
@@ -9,33 +20,55 @@ CREATE TABLE `jobs` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `job_req_id_UNIQUE` (`id`),
   KEY `email` (`email`),
-  CONSTRAINT `jobs_ibfk_3` FOREIGN KEY (`email`) REFERENCES `users` (`email`)
+  CONSTRAINT `jobs_ibfk_3` FOREIGN KEY (`email`) REFERENCES `aspiredb`.`users` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
-CREATE TABLE `users` (
-  `fname` varchar(320) DEFAULT NULL,
-  `lname` varchar(300) DEFAULT NULL,
-  `username` varchar(300) NOT NULL,
-  `email` varchar(300) NOT NULL,
-  `password` varchar(300) NOT NULL,
-  `profession` varchar(300) DEFAULT NULL,
-  PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+CREATE TABLE `aspiredb`.`documents` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(320) NOT NULL,
+  `title` varchar(300) DEFAULT NULL,
+  `filename` varchar(300) NOT NULL,
+  `file` longblob NOT NULL,
+  `size` int DEFAULT NULL,
+  `description` varchar(300) DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `uploadDate` date NOT NULL,
+  `uploadTime` time NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`),
+  CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`email`) REFERENCES `aspiredb`.`users` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `aspiredb`.`applications` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(320) NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `notes` varchar(600) DEFAULT NULL,
+  `dateUploaded` date NOT NULL,
+  `company` varchar(300) NOT NULL,
+  `job_id` int DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `document_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`),
+  KEY `applications_ibfk_2` (`job_id`),
+  CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`email`) REFERENCES `aspiredb`.`users` (`email`),
+  CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`job_id`) REFERENCES `aspiredb`.`jobs` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
 
 CREATE TABLE `aspiredb`.`interviews` (
-  `id` INT NOT NULL,
-  `email` VARCHAR(320) NULL,
-  `company` VARCHAR(300) NULL,
-  `time` VARCHAR(45) NULL,
-  `date` DATE NULL,
-  `status` VARCHAR(100) NULL,
-  `jobTitle` VARCHAR(300) NULL,
-  `application_id` INT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(320) NOT NULL,
+  `company` VARCHAR(300) NOT NULL,
+  `time` VARCHAR(45) NOT NULL,
+  `date` DATE NOT NULL,
+  `status` VARCHAR(100) NOT NULL,
+  `jobTitle` VARCHAR(300) NOT NULL,
   `notes` VARCHAR(320) NULL,
   PRIMARY KEY (`id`),
   INDEX `email_idx` (`email` ASC) VISIBLE,
   CONSTRAINT `email`
     FOREIGN KEY (`email`)
-    REFERENCES `aspiredb`.`users` (`email`)
-    
+    REFERENCES `aspiredb`.`users` (`email`)  
 );
