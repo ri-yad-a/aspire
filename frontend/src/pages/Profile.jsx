@@ -9,6 +9,7 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
 import Table from './Table';
+import fileDownload from 'js-file-download';
 
 const Profile = () => {
 
@@ -182,7 +183,7 @@ const Profile = () => {
   }
 
   const downloadPDF = async (idx) => {
-    // download pdf
+    fileDownload(rows[idx].file, rows[idx].filename);
   }
 
   const handlePDFSubmit = (e) => {
