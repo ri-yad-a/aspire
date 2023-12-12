@@ -19,7 +19,6 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/interviews", interviewRoutes);
 
-
 app.get("/", (req,res)=>{
     res.json("Hello, this is the backend");
 })
