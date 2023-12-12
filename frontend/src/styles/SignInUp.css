@@ -53,6 +53,10 @@
   cursor: pointer;
   color: white;
 }
+
+.auth form button:hover {
+  background-color: #5f00a8;
+}
 .auth form p {
   background-color: white;
   font-size: 12px;

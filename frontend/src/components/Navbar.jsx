@@ -22,7 +22,6 @@ const Navbar = () => {
     }
   };
 
-
   return (
     <header>
       <nav className="navbar">
@@ -40,11 +39,11 @@ const Navbar = () => {
           </li>
           {/* <li><Link to="/profile">Profile</Link></li> */}
         </ul>
-        <div className="navbar-profile">
-          <div>
+        <div className="navbar-last">
+          <div className="profile-btn">
             <Link to="/profile">Profile</Link>
           </div>
-          <div onClick={handleLogout}>Logout</div>
+          <div onClick={handleLogout} className="logout-btn">Logout</div>
         </div>
       </nav>
     </header>
