@@ -104,7 +104,7 @@ function Interviews() {
 
   return (
     <div className="interviews">
-      <h1>Hey {currentUser.username}, here are your interviews</h1>
+      <h1 className="welcome">{currentUser.username}'s Interviews</h1>
       <Table
         rows={rows}
         deleteRow={handleDeleteRow}

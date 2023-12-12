@@ -28,7 +28,7 @@ CREATE TABLE `aspiredb`.`documents` (
   `email` varchar(320) NOT NULL,
   `title` varchar(300) DEFAULT NULL,
   `filename` varchar(300) NOT NULL,
-  `file` longblob NOT NULL,
+  `file` mediumtext NOT NULL,
   `size` int DEFAULT NULL,
   `description` varchar(300) DEFAULT NULL,
   `type` varchar(100) DEFAULT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `aspiredb`.`documents` (
   PRIMARY KEY (`id`),
   KEY `email` (`email`),
   CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`email`) REFERENCES `aspiredb`.`users` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 CREATE TABLE `aspiredb`.`applications` (
   `id` int NOT NULL AUTO_INCREMENT,

@@ -98,6 +98,7 @@ function Jobs() {
 
   return (
     <div className="interviews">
+      <h1 className="welcome">{currentUser.username}'s Jobs</h1>
       <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} type={"jobs"}/>
       <button onClick={() => setModalOpen(true)} className="btn">
         Add
