@@ -9,10 +9,6 @@ export const getInterviews = (req, res) => {
     return res.status(200).json(data);
   });
 };
-// view specific interview
-export const getInterview = (req, res) => {
-  res.send("Interview");
-};
 // update specific interview
 export const updateInterview = (req, res) => {
   const q =
@@ -70,9 +66,16 @@ export const getInterviewQuestions = (req, res) => {
   const q = "SELECT id FROM interviewq_created WHERE email = ?";
   db.query(q, req.query.email, (err, data) => {
     if (err) return res.status(500).json(err);
-    console.log(data);
-    const q1 = "SELECT * FROM interview_questions WHERE id = ?";
-    db.query(q1, data, (err1, data1) => {
+    if (!data.length) return res.status(200).json([]);
+
+    const ids = data.map(item => item.id);
+
+    // Dynamically generate placeholders for the IN clause based on the length of the array
+    const placeholders = ids.map(() => '?').join(',');
+
+    const q1 = `SELECT * FROM interview_questions WHERE id IN (${placeholders})`;
+    console.log(ids);
+    db.query(q1, ids, (err1, data1) => {
       if (err1) return res.status(500).json(err1);
       return res.status(200).json(data1);
     });
@@ -87,6 +90,7 @@ export const updateInterviewQuestion = (req, res) => {
     req.body.answer,
     req.body.notes,
     req.body.questionType,
+    req.body.id,
   ];
   db.query(q, values, (err, data) => {
     if (err) return res.status(500).json(err);
@@ -125,12 +129,15 @@ export const uploadInterviewQuestion = (req, res) => {
     db.query(q1, [values], (err1, data1) => {
       if (err1) return res.status(500).json(err1);
 
-      const q2 = "INSERT INTO interviewq_created(`email`, `id`) VALUES (?)";
-      db.query(q2, [req.body.email, req.body.id], (err2, data2) => {
+      const q2 = "SELECT LAST_INSERT_ID() AS id";
+      db.query(q2, [], (err2, data2) => {
         if (err2) return res.status(500).json(err2);
-        return res.status(200).json(data2);
-      })
-
+        const q3 = "INSERT INTO interviewq_created(`email`, `id`) VALUES (?)";
+        db.query(q3, [[req.body.email, data2[0].id]], (err3, data3) => {
+          if (err3) return res.status(500).json(err3);
+          return res.status(200).json(data3);
+        })
+    });
     });
   });
 };

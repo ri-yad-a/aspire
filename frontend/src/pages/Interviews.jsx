@@ -51,6 +51,10 @@ function Interviews() {
   // initial fetch
   useEffect(() => {
     fetchData();
+  }, [currentUser.email]);
+
+  // initial fetch for questions
+  useEffect(() => {
     fetchQuestionsData();
   }, [currentUser.email]);
 
@@ -164,6 +168,7 @@ function Interviews() {
           email: currentUser.email,
           id: 0,
         });
+        console.log(res.data)
       }
 
       fetchQuestionsData();

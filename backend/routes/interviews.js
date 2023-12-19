@@ -1,7 +1,6 @@
 import express from "express";
 import {
   getInterviews,
-  getInterview,
   updateInterview,
   deleteInterview,
   uploadInterview,
@@ -14,8 +13,6 @@ const router = express.Router();
 
 // general view of all interviews
 router.get("/", getInterviews);
-// view specific interview
-router.get("/:id", getInterview);
 // update specific interview
 router.put("/", updateInterview);
 // delete specific interview
