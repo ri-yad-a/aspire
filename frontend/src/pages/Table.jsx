@@ -54,7 +54,54 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
               </table>
             </div>
           );
-    } else if (type === "jobs") {
+    } else if (type === "interviewQuestions") {
+      return (
+        <div className="table-wrapper">
+          <table className="table">
+            <thead>
+              <tr>
+                <th className="expand-questions">Question</th>
+                <th className="expand-questions">Answer</th>
+                <th className="expand-questions">Notes</th>
+                <th>Type</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows && rows.map((row, idx) => {
+                const statusText =
+                  row.questionType.charAt(0).toUpperCase() + row.questionType.slice(1);
+    
+                return (
+                  <tr key={idx}>
+                    <td className="expand">{row.question}</td>
+                    <td className="expand">{row.answer}</td>
+                    <td className="expand">{row.notes}</td>
+                    <td>
+                      <span className={`label label-${row.questionType}`}>
+                        {statusText}
+                      </span>
+                    </td>
+                    <td className="fit">
+                      <span className="actions">
+                        <BsFillTrashFill
+                          className="delete-btn"
+                          onClick={() => deleteRow(idx)}
+                        />
+                        <BsFillPencilFill
+                          className="edit-btn"
+                          onClick={() => editRow(idx)}
+                        />
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
+    }else if (type === "jobs") {
         return(<div className="table-wrapper">
         <table className="table">
           <thead>
