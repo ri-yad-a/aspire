@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import '../index.css';
 import '../styles/SignInUp.css';
-import axios from "axios";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
@@ -25,8 +24,7 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // await adminLogin(inputs);
-      await axios.post("/admin/login", inputs);
+      await adminLogin(inputs);
       navigate("/adminDashboard");
     } catch (err) {
       setError(err.response.data);
