@@ -29,7 +29,7 @@ const AdminLogin = () => {
       await axios.post("/admin/login", inputs);
       navigate("/adminDashboard");
     } catch (err) {
-      console.log(err.response);
+      setError(err.response.data);
     }
   };
 
@@ -65,6 +65,9 @@ const AdminLogin = () => {
         />
         <button type="submit">Login</button>
         {err && <p>{err}</p>}
+        <span>
+          Don't have an admin account? <Link style={linkStyle} to="/">Login</Link>
+        </span>
       </form>
     </div>
     </div>
