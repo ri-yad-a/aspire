@@ -141,3 +141,9 @@ export const uploadInterviewQuestion = (req, res) => {
     });
   });
 };
+
+export const deleteUserInterviewQuestions = (req, res) => {
+};
+export const deleteUserInterviews = (req, res) => {
+};
+

@@ -46,3 +46,6 @@ export const uploadJob = (req, res) => {
       });
     });
 };
+
+export const deleteUserJobs = (req, res) => {
+};

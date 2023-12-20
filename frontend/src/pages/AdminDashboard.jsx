@@ -58,13 +58,13 @@ function AdminDashboard() {
     const deleteInterviews = await axios.delete("/interviews/delete", {});
 
     // delete interview questions
-    //const deleteInterviewQs = await axios.delete("/interview/delete", {});
+    const deleteInterviewQs = await axios.delete("/interviews/questions/delete", {});
 
     // delete jobs
     const deleteJobs = await axios.delete("/jobs/delete", {});
 
     // delete documents
-    const deleteDocs = await axios.delete("/users/pdf/delete", {});
+    const deleteDocs = await axios.delete("/users/pdf", {});
 
   };
 

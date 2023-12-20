@@ -73,3 +73,6 @@ export const deleteUser = (req, res) => {
         return res.status(200).json("User deleted successfully.");
     });
 };
+
+export const deleteUserDocs = (req, res) => {
+};

@@ -50,3 +50,6 @@ export const getDocuments = (req, res) => {
       if (data.length) return res.status(200).json(data);
     });
 };
+
+export const deleteUserApplications = (req, res) => {
+};

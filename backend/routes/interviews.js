@@ -8,6 +8,8 @@ import {
   updateInterviewQuestion,
   deleteInterviewQuestion,
   uploadInterviewQuestion,
+  deleteUserInterviews,
+  deleteUserInterviewQuestions
 } from "../controllers/interviews.js";
 const router = express.Router();
 
@@ -28,5 +30,11 @@ router.put("/questions", updateInterviewQuestion);
 router.delete("/questions", deleteInterviewQuestion);
 // new interview upload
 router.post("/questions", uploadInterviewQuestion);
+
+// delete all interviews for a user
+router.delete("/delete", deleteUserInterviews);
+
+// delete all interview questions for a user
+router.delete("/questions/delete", deleteUserInterviewQuestions);
 
 export default router;
