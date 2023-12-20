@@ -45,7 +45,6 @@ function AdminDashboard() {
     } catch (err2) {
       setError(err2.response.data);
     }
-    setError("User " + rows[targetIndex].username + " deleted successfully.");
     setRows(rows.filter((_, idx) => idx !== targetIndex));
   };
 
