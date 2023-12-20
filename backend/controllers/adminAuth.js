@@ -1,5 +1,4 @@
 import { db } from "../dbConnect.js";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const adminLogin = (req, res) => {

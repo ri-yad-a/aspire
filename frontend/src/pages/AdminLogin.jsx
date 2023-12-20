@@ -25,10 +25,11 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await adminLogin(inputs);
+      // await adminLogin(inputs);
+      await axios.post("/admin/login", inputs);
       navigate("/adminDashboard");
     } catch (err) {
-      setError(err.response.data);
+      console.log(err.response);
     }
   };
 
