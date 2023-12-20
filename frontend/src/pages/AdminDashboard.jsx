@@ -51,21 +51,63 @@ function AdminDashboard() {
   };
 
   const deleteUserData = async (targetIndex) => {
+    let errToReturn = "";
     // delete applications
-    const deleteApps = await axios.delete("/applications/delete", {});
+    try {
+      await axios.delete("/applications/delete", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
     // delete interviews
-    const deleteInterviews = await axios.delete("/interviews/delete", {});
+    try {
+      await axios.delete("/interviews/delete", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
     // delete interview questions
-    const deleteInterviewQs = await axios.delete("/interviews/questions/delete", {});
+    try {
+      await axios.delete("/interviews/questions/delete", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
-    // delete jobs
-    const deleteJobs = await axios.delete("/jobs/delete", {});
+//     // delete jobs
+    try {
+      await axios.delete("/jobs/delete", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
     // delete documents
-    const deleteDocs = await axios.delete("/users/pdf", {});
+    try {
+      await axios.delete("/users/pdf", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
+    setError(errToReturn !== '' ? errToReturn : 'Data deleted successfully for user ' + rows[targetIndex].username);
   };
 
   const errorStyle = {

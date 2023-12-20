@@ -52,4 +52,9 @@ export const getDocuments = (req, res) => {
 };
 
 export const deleteUserApplications = (req, res) => {
+  const q = "DELETE FROM applications WHERE email = ?";
+  db.query(q, req.query.email, (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json("Applications deleted for user with email " + req.query.email);
+  });
 };

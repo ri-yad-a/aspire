@@ -145,5 +145,10 @@ export const uploadInterviewQuestion = (req, res) => {
 export const deleteUserInterviewQuestions = (req, res) => {
 };
 export const deleteUserInterviews = (req, res) => {
+  const q = "DELETE FROM interviews WHERE email = ?";
+  db.query(q, req.query.email, (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json("Interviews deleted for user with email " + req.query.email);
+  });
 };
 
