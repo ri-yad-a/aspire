@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useState } from "react";
 import '../index.css';
 import '../styles/SignInUp.css';
-import { useState } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { AuthContext } from "../context/authContext";
 
-const Register = () => {
+const AdminLogin = () => {
+
   const [inputs, setInputs] = useState({
-    fname:"",
-    lname:"",
-    username: "",
     email: "",
     password: "",
   });
   const [err, setError] = useState(null);
 
   const navigate = useNavigate();
+
+  const { adminLogin } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -24,8 +24,8 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth/register", inputs);
-      navigate("/");
+      await adminLogin(inputs);
+      navigate("/adminDashboard");
     } catch (err) {
       setError(err.response.data);
     }
@@ -42,34 +42,14 @@ const Register = () => {
     <div className="intro-pane">
       <h1><i>ASPIRE</i></h1>
       <p>Application for Job Seekers</p>
+      <p>Admin Dashboard</p>
     </div>
     <div className="auth">
-      <h1>Register</h1>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-      <input
-          required
-          type="text"
-          placeholder="First Name"
-          name="fname"
-          onChange={handleChange}
-        />
         <input
           required
           type="text"
-          placeholder="Last Name"
-          name="lname"
-          onChange={handleChange}
-        />
-        <input
-          required
-          type="text"
-          placeholder="Username"
-          name="username"
-          onChange={handleChange}
-        />
-        <input
-          required
-          type="email"
           placeholder="Email"
           name="email"
           onChange={handleChange}
@@ -81,16 +61,16 @@ const Register = () => {
           name="password"
           onChange={handleChange}
         />
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
         {err && <p>{err}</p>}
         <span>
-          Do you have an account? <Link style={linkStyle} to="/">Login</Link>
+          Don't have an admin account? <Link style={linkStyle} to="/">Login</Link>
         </span>
       </form>
     </div>
     </div>
+    
   );
 };
 
-export default Register;
-
+export default AdminLogin;

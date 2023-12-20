@@ -1,5 +1,5 @@
 import express from "express";
-import { deletePDF, getPDF, getPDFs, getUserInfo, updateUserInfo, uploadPDF } from "../controllers/users.js";
+import { deletePDF, deleteUser, getAllUsers, getPDF, getPDFs, getUserInfo, updateUserInfo, uploadPDF } from "../controllers/users.js";
 
 const router = express.Router();
 
@@ -15,5 +15,9 @@ router.delete("/upload", deletePDF);
 
 // get specific pdf file
 router.get("/pdf", getPDF);
+
+// get all users for admin dashboard
+router.get("/all", getAllUsers);
+router.delete("/delete", deleteUser);
 
 export default router;

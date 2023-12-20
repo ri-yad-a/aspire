@@ -37,6 +37,21 @@ db.connect(function (err) {
     console.log('Table "users" created');
   });
 
+  // Create 'admin' table
+  const createAdminsTable = `
+    CREATE TABLE IF NOT EXISTS admins (
+        username VARCHAR(300) NOT NULL,
+        email VARCHAR(300) NOT NULL,
+        password VARCHAR(300) NOT NULL,
+        PRIMARY KEY (email)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+    `;
+
+  db.query(createAdminsTable, function (err, result) {
+    if (err) throw err;
+    console.log('Table "admins" created');
+  });
+
   // Create 'jobs' table
   const createJobsTable = `
     CREATE TABLE IF NOT EXISTS jobs (

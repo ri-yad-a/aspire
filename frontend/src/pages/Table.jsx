@@ -1,8 +1,9 @@
 import React from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsCloudUploadFill, BsCloudDownloadFill } from "react-icons/bs";
+import { AiOutlineClear } from "react-icons/ai";
 import "../styles/Table.css";
 
-const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadRowPDF }) => {
+const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadRowPDF, deleteData }) => {
     if (type === "interviews") {
         return (
             <div className="table-wrapper">
@@ -248,7 +249,46 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
           </tbody>
         </table>
       </div>);
-    }
+    } else if (type === "adminDashboard") {
+      return(<div className="table-wrapper">
+<table className="table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th className="expand">Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {rows && rows.map((row, idx) => {
+
+      return (
+        <tr key={idx}>
+          <td>{row.username}</td>
+          <td>{row.fname}</td>
+          <td>{row.lname}</td>
+          <td>{row.email}</td>
+          <td className="fit">
+            <span className="actions">
+              <BsFillTrashFill
+                className="delete-btn"
+                onClick={() => deleteRow(idx)}
+              />
+              <AiOutlineClear 
+                className="upload-btn"
+                onClick={() => deleteData(idx)}
+              />
+            </span>
+          </td>
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
+</div>);
+}
  
 };
 
