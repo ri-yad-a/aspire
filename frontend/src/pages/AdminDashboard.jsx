@@ -36,7 +36,6 @@ function AdminDashboard() {
 
   const handleDeleteRow = async (targetIndex) => {
     deleteUserData(targetIndex);
-    console.log(rows[targetIndex]);
     try {
       await axios.delete("/users/delete", {
         params: {
@@ -46,7 +45,7 @@ function AdminDashboard() {
     } catch (err2) {
       setError(err2.response.data);
     }
-    console.log(rows[targetIndex]);
+    setError("User " + rows[targetIndex].username + " deleted successfully.");
     setRows(rows.filter((_, idx) => idx !== targetIndex));
   };
 
