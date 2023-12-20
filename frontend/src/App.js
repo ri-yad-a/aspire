@@ -29,6 +29,7 @@ const router = createBrowserRouter([
   {
     path: "/adminDashboard",
     element: <div>
+      <Navbar type="admin"/>
       <AdminDashboard/>
       <Footer/>
     </div>,
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
   {
     path: "/applications",
     element: <div>
-      <Navbar/>
+      <Navbar type="client"/>
       <Applications/>
       <Footer/>
       </div>,
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
   {
     path: "/jobs",
     element: <div>
-    <Navbar/>
+    <Navbar type="client"/>
     <Jobs/>
     <Footer/>
     </div>,
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
   {
     path: "/interviews",
     element: <div>
-    <Navbar/>
+    <Navbar type="client"/>
     <Interviews/>
     <Footer/>
     </div>,
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <div>
-    <Navbar/>
+    <Navbar type="client"/>
     <Profile/>
     <Footer/>
     </div>,
