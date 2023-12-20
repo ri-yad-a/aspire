@@ -46,6 +46,10 @@
   .expand {
     width: 100%;
   }
+
+  .expand-questions {
+    width: 33%;
+  }
   
   .label {
     border-radius: 3px;
@@ -79,6 +83,10 @@
 
   .label-transcript {
     background-color: #e4d615;
+  }
+
+  .label-technical {
+    background-color: #42a942;
   }
 
   .label-other {

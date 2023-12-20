@@ -18,7 +18,7 @@ db.connect(function (err) {
     return;
   }
   console.log("Connected to the database!");
-  
+
   // Create 'users' table
   const createUsersTable = `
     CREATE TABLE IF NOT EXISTS users (
@@ -130,6 +130,37 @@ db.connect(function (err) {
     if (err) throw err;
     console.log('Table "interviews" created');
   });
+
+  // Create 'interviewQuestions' table
+  const createInterviewQuestionsTable = `
+    CREATE TABLE IF NOT EXISTS interview_questions
+    (id            int                NOT NULL auto_increment,
+     question               VARCHAR(600)            NOT NULL,
+     answer          VARCHAR(600),
+     notes            varchar(600),
+     questionType     varchar(100),
+     PRIMARY KEY (id) )`;
+
+  db.query(createInterviewQuestionsTable, function (err, result) {
+    if (err) throw err;
+    console.log('Table "interview_questions" created');
+  });
+
+
+  // Create 'interviewQuestions' table
+  const createInterviewQCreatedTable = `
+    CREATE TABLE IF NOT EXISTS interviewq_created
+    (email           VARCHAR(320)            NOT NULL,
+     id            int               NOT NULL,
+    PRIMARY KEY (email, id),
+    FOREIGN KEY (email) REFERENCES users(email),
+    FOREIGN KEY (id) REFERENCES interview_questions(id) )`;
+
+  db.query(createInterviewQCreatedTable, function (err, result) {
+    if (err) throw err;
+    console.log('Table "interviewq_created" created');
+  });
+
 });
 
 export { db };

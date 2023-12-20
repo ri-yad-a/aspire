@@ -17,6 +17,13 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
       notes: "",
       status: "accepted",
     };
+  } else if (type === "interviewQuestions") {
+    initialState = defaultValue || {
+      question: "",
+      answer: "",
+      notes: "",
+      questionType: "technical",
+    };
   } else if (type === "jobs") {
     initialState = defaultValue || {
       jobTitle: "",
@@ -49,6 +56,11 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
         formState.date &&
         formState.notes &&
         formState.status) ||
+      (type === "interviewQuestions" &&
+      formState.question &&
+      formState.answer &&
+      formState.notes &&
+      formState.questionType) ||
       (type === "jobs" &&
         formState.jobTitle &&
         formState.company &&
@@ -170,6 +182,58 @@ const InterviewsModal = ({ closeModal, onSubmit, defaultValue, type }) => {
               <option value="pending">Pending</option>
               <option value='upcoming'>Upcoming</option>
               <option value="rejected">Rejected</option>
+            </select>
+          </div>
+          {errors && <div className="error">{`Please include: ${errors}`}</div>}
+          <button type="submit" className="btn" onClick={handleSubmit}>
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+  } else if (type === "interviewQuestions") {
+    return(<div
+      className="modal-container"
+      onClick={(e) => {
+        if (e.target.className === "modal-container") closeModal();
+      }}
+    >
+      <div className="modal">
+        <form>
+        <div className="form-group">
+            <label htmlFor="question">Question</label>
+            <textarea
+              name="question"
+              onChange={handleChange}
+              value={formState.question}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="answer">Answer</label>
+            <textarea
+              name="answer"
+              onChange={handleChange}
+              value={formState.answer}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="notes">Notes</label>
+            <textarea
+              name="notes"
+              onChange={handleChange}
+              value={formState.notes}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="questionType">Type</label>
+            <select
+              name="questionType"
+              onChange={handleChange}
+              value={formState.questionType}
+            >
+              <option value="technical">Technical</option>
+              <option value="other">Other</option>
             </select>
           </div>
           {errors && <div className="error">{`Please include: ${errors}`}</div>}
