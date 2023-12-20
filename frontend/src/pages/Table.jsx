@@ -202,7 +202,7 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
         </table>
       </div>);
     } else if (type === "adminDashboard") {
-      return(<div className="table-wrapper1">
+      return(<div className="table-wrapper">
 <table className="table">
   <thead>
     <tr>
