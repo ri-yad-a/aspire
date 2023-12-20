@@ -1,8 +1,9 @@
 import React from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsCloudUploadFill, BsCloudDownloadFill } from "react-icons/bs";
+import { AiOutlineClear } from "react-icons/ai";
 import "../styles/Table.css";
 
-const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadRowPDF }) => {
+const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadRowPDF, deleteData }) => {
     if (type === "interviews") {
         return (
             <div className="table-wrapper">
@@ -202,7 +203,7 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
         </table>
       </div>);
     } else if (type === "adminDashboard") {
-      return(<div className="table-wrapper1">
+      return(<div className="table-wrapper">
 <table className="table">
   <thead>
     <tr>
@@ -210,14 +211,11 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
       <th>First Name</th>
       <th>Last Name</th>
       <th className="expand">Email</th>
-      <th>Type</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     {rows && rows.map((row, idx) => {
-      const statusText =
-        row.type.charAt(0).toUpperCase() + row.type.slice(1);
 
       return (
         <tr key={idx}>
@@ -225,20 +223,15 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
           <td>{row.fname}</td>
           <td>{row.lname}</td>
           <td>{row.email}</td>
-          <td>
-            <span className={`label label-${row.type}`}>
-              {statusText}
-            </span>
-          </td>
           <td className="fit">
             <span className="actions">
               <BsFillTrashFill
                 className="delete-btn"
                 onClick={() => deleteRow(idx)}
               />
-              <BsCloudUploadFill
+              <AiOutlineClear 
                 className="upload-btn"
-                onClick={() => viewRowPDF(idx)}
+                onClick={() => deleteData(idx)}
               />
             </span>
           </td>

@@ -56,3 +56,20 @@ export const getPDF = (req, res) => {
         return res.status(200).json(data);
     });
 };
+
+export const getAllUsers = (req, res) => {
+    const q = "SELECT * FROM users";
+
+    db.query(q, req.query, (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json(data);
+      });
+};
+
+export const deleteUser = (req, res) => {
+    const q = "DELETE FROM users WHERE email = ?";
+    db.query(q, req.query.id, (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json("User deleted successfully.");
+    });
+};

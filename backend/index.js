@@ -5,6 +5,7 @@ import userRoutes from "./routes/users.js";
 import jobRoutes from "./routes/jobs.js";
 import applicationRoutes from "./routes/applications.js";
 import interviewRoutes from "./routes/interviews.js";
+import adminAuthRoutes from "./routes/adminAuth.js";
 import { db } from "./dbConnect.js";
 import cookieParser from "cookie-parser";
 
@@ -18,6 +19,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/interviews", interviewRoutes);
+app.use("/api/admin", adminAuthRoutes);
 
 app.get("/", (req,res)=>{
     res.json("Hello, this is the backend");

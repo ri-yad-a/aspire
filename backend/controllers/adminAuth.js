@@ -1,10 +1,8 @@
 import { db } from "../dbConnect.js";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const adminLogin = (req, res) => {
   //CHECK ADMIN
-
   const q = "SELECT * FROM admins WHERE email = ?";
 
   db.query(q, [req.body.email], (err, data) => {
@@ -14,7 +12,7 @@ export const adminLogin = (req, res) => {
     // Check password
     const storedPassword = data[0].password;
 
-    if (password !== storedPassword) {
+    if (req.body.password !== storedPassword) {
       return res.status(400).json("Wrong email or password!");
     }
 

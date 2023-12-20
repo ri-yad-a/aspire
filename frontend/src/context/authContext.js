@@ -14,6 +14,10 @@ export const AuthContextProvider = ({ children }) => {
         const res = await axios.post("/auth/logout", inputs);
         setCurrentUser(null);
     };
+    const adminLogin = async(inputs) => {
+        const res = await axios.post("/admin/login", inputs);
+        setCurrentUser(res.data);
+    }
 
     const adminLogout = async(inputs) => {
         const res = await axios.post("/admin/logout", inputs);
@@ -24,7 +28,7 @@ export const AuthContextProvider = ({ children }) => {
         localStorage.setItem("user", JSON.stringify(currentUser))
     }, [currentUser]);
 
-    return <AuthContext.Provider value={{currentUser, login, logout, adminLogout}}>
+    return <AuthContext.Provider value={{currentUser, login, logout, adminLogout, adminLogin}}>
         {children}
     </AuthContext.Provider>
 };

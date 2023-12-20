@@ -12,14 +12,16 @@ function AdminDashboard() {
   const {currentUser} = useContext(AuthContext);
   const [rows, setRows] = useState([]);
 
+  const [err, setError] = useState(null);
+
   const [users, setUsers] = useState([]);
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("/users", {});
+      const res = await axios.get("/users/all", {});
       setUsers(res.data);
     } catch (err){
-      console.error(err.response);
+      setError(err.response);
     } 
   };
 
@@ -33,25 +35,48 @@ function AdminDashboard() {
 
 
   const handleDeleteRow = async (targetIndex) => {
+    deleteUserData(targetIndex);
     console.log(rows[targetIndex]);
     try {
-      const res1 = await axios.delete("/users", {
+      await axios.delete("/users/delete", {
         params: {
-          id: rows[targetIndex].id,
+          email: rows[targetIndex].email,
         }
       });
     } catch (err2) {
-      console.error(err2.response.data);
+      setError(err2.response.data);
     }
     console.log(rows[targetIndex]);
     setRows(rows.filter((_, idx) => idx !== targetIndex));
   };
-  
 
+  const deleteUserData = async (targetIndex) => {
+    // delete applications
+    const deleteApps = await axios.delete("/applications/delete", {});
+
+    // delete interviews
+    const deleteInterviews = await axios.delete("/interviews/delete", {});
+
+    // delete interview questions
+    //const deleteInterviewQs = await axios.delete("/interview/delete", {});
+
+    // delete jobs
+    const deleteJobs = await axios.delete("/jobs/delete", {});
+
+    // delete documents
+    const deleteDocs = await axios.delete("/users/pdf/delete", {});
+
+  };
+
+  const errorStyle = {
+    color: 'red',
+  };
+  
   return (
     <div className="interviews">
-      <h1 className="welcome">{currentUser.username}'s Admin Dashboard</h1>
-      <Table rows={rows} deleteRow={handleDeleteRow} type={"adminDashboard"}/>
+      <h1 className="welcome">Admin Dashboard</h1>
+      <Table rows={rows} deleteRow={handleDeleteRow} deleteData={deleteUserData} type={"adminDashboard"}/>
+      {err && <p style={errorStyle}>{err}</p>}
     </div>
   );
 }
