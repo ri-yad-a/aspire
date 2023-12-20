@@ -201,7 +201,54 @@ const InterviewsTable = ({ rows, deleteRow, editRow, type, viewRowPDF, downloadR
           </tbody>
         </table>
       </div>);
-    }
+    } else if (type === "adminDashboard") {
+      return(<div className="table-wrapper1">
+<table className="table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th className="expand">Email</th>
+      <th>Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {rows && rows.map((row, idx) => {
+      const statusText =
+        row.type.charAt(0).toUpperCase() + row.type.slice(1);
+
+      return (
+        <tr key={idx}>
+          <td>{row.username}</td>
+          <td>{row.fname}</td>
+          <td>{row.lname}</td>
+          <td>{row.email}</td>
+          <td>
+            <span className={`label label-${row.type}`}>
+              {statusText}
+            </span>
+          </td>
+          <td className="fit">
+            <span className="actions">
+              <BsFillTrashFill
+                className="delete-btn"
+                onClick={() => deleteRow(idx)}
+              />
+              <BsCloudUploadFill
+                className="upload-btn"
+                onClick={() => viewRowPDF(idx)}
+              />
+            </span>
+          </td>
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
+</div>);
+}
  
 };
 
