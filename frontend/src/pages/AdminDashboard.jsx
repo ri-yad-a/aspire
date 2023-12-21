@@ -6,17 +6,34 @@ import Modal from './Modal';
 import { useState, useContext } from "react";
 import axios from 'axios';
 import { AuthContext } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 
 function AdminDashboard() {
-  const {currentUser} = useContext(AuthContext);
+  const {currentUser, adminLogout} = useContext(AuthContext);
   const [rows, setRows] = useState([]);
 
   const [err, setError] = useState(null);
 
   const [users, setUsers] = useState([]);
 
+  const navigate = useNavigate();
+
   const fetchData = async () => {
+
+    try {
+      const yes = await axios.get("/admin/checkAdmin", {
+        params: {
+          email: currentUser.email,
+        }
+      });
+      setError(yes.data)
+    } catch (error) {
+      console.log("Cannot login as non-admin user")
+      await adminLogout();
+      navigate("/")
+    }
+
     try {
       const res = await axios.get("/users/all", {});
       setUsers(res.data);
@@ -35,8 +52,7 @@ function AdminDashboard() {
 
 
   const handleDeleteRow = async (targetIndex) => {
-    deleteUserData(targetIndex);
-    console.log(rows[targetIndex]);
+    await deleteUserData(targetIndex);
     try {
       await axios.delete("/users/delete", {
         params: {
@@ -46,26 +62,67 @@ function AdminDashboard() {
     } catch (err2) {
       setError(err2.response.data);
     }
-    console.log(rows[targetIndex]);
     setRows(rows.filter((_, idx) => idx !== targetIndex));
   };
 
   const deleteUserData = async (targetIndex) => {
+    let errToReturn = "";
     // delete applications
-    const deleteApps = await axios.delete("/applications/delete", {});
+    try {
+      await axios.delete("/applications/delete", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
     // delete interviews
-    const deleteInterviews = await axios.delete("/interviews/delete", {});
+    try {
+      await axios.delete("/interviews/delete", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
     // delete interview questions
-    //const deleteInterviewQs = await axios.delete("/interview/delete", {});
+    try {
+      await axios.delete("/interviews/questions/delete", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
-    // delete jobs
-    const deleteJobs = await axios.delete("/jobs/delete", {});
+//     // delete jobs
+    try {
+      await axios.delete("/jobs/delete", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
     // delete documents
-    const deleteDocs = await axios.delete("/users/pdf/delete", {});
+    try {
+      await axios.delete("/users/pdf", {
+        params: {
+          email: rows[targetIndex].email,
+        }
+      });
+    } catch (error) {
+      errToReturn += error.response;
+    }
 
+    setError(errToReturn !== '' ? errToReturn : 'Data deleted successfully for user ' + rows[targetIndex].username);
   };
 
   const errorStyle = {

@@ -46,3 +46,11 @@ export const uploadJob = (req, res) => {
       });
     });
 };
+
+export const deleteUserJobs = (req, res) => {
+    const q = "DELETE FROM jobs WHERE email = ?";
+    db.query(q, req.query.email, (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json("Jobs deleted for user with email " + req.query.email);
+    });
+};

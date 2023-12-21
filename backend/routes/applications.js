@@ -1,5 +1,5 @@
 import express from "express";
-import { getApplications, updateApplication, deleteApplication, uploadApplication, getDocuments } from "../controllers/applications.js";
+import { getApplications, updateApplication, deleteApplication, uploadApplication, getDocuments, deleteUserApplications } from "../controllers/applications.js";
 const router = express.Router();
 
 // general view of all jobs
@@ -12,5 +12,8 @@ router.delete("/", deleteApplication);
 router.post("/", uploadApplication);
 // get docs
 router.get("/documents", getDocuments);
+
+// delete all applications for a user
+router.delete("/delete", deleteUserApplications);
 
 export default router;

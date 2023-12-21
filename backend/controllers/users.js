@@ -68,8 +68,16 @@ export const getAllUsers = (req, res) => {
 
 export const deleteUser = (req, res) => {
     const q = "DELETE FROM users WHERE email = ?";
-    db.query(q, req.query.id, (err, data) => {
+    db.query(q, req.query.email, (err, data) => {
         if (err) return res.status(500).json(err);
         return res.status(200).json("User deleted successfully.");
+    });
+};
+
+export const deleteUserDocs = (req, res) => {
+    const q = "DELETE FROM documents WHERE email = ?";
+    db.query(q, req.query.email, (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json("Docuements deleted for user with email " + req.query.email);
     });
 };

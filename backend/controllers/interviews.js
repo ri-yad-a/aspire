@@ -74,7 +74,6 @@ export const getInterviewQuestions = (req, res) => {
     const placeholders = ids.map(() => '?').join(',');
 
     const q1 = `SELECT * FROM interview_questions WHERE id IN (${placeholders})`;
-    console.log(ids);
     db.query(q1, ids, (err1, data1) => {
       if (err1) return res.status(500).json(err1);
       return res.status(200).json(data1);
@@ -141,3 +140,36 @@ export const uploadInterviewQuestion = (req, res) => {
     });
   });
 };
+
+export const deleteUserInterviewQuestions = (req, res) => {
+  const q = "SELECT id FROM interviewq_created WHERE email = ?";
+  db.query(q, req.query.email, (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (!data.length) return res.status(200).json([]);
+
+    const q2 = "DELETE FROM interviewq_created WHERE email = ?";
+    db.query(q2, req.query.email, (err, data) => {
+      if (err) return res.status(500).json(err);
+    });
+
+    const ids = data.map(item => item.id);
+
+    // Dynamically generate placeholders for the IN clause based on the length of the array
+    const placeholders = ids.map(() => '?').join(',');
+
+    const q1 = `DELETE FROM interview_questions WHERE id IN (${placeholders})`;
+    db.query(q1, ids, (err1, data1) => {
+      if (err1) return res.status(500).json(err1);
+      return res.status(200).json(data1);
+    });
+  });
+};
+
+export const deleteUserInterviews = (req, res) => {
+  const q = "DELETE FROM interviews WHERE email = ?";
+  db.query(q, req.query.email, (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json("Interviews deleted for user with email " + req.query.email);
+  });
+};
+
