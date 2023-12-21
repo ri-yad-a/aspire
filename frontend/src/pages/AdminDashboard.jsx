@@ -52,7 +52,7 @@ function AdminDashboard() {
 
 
   const handleDeleteRow = async (targetIndex) => {
-    deleteUserData(targetIndex);
+    await deleteUserData(targetIndex);
     try {
       await axios.delete("/users/delete", {
         params: {
