@@ -34,3 +34,12 @@ export const adminLogout = (req, res) => {
     secure:true
   }).status(200).json("Admin has been logged out.")
 };
+
+export const checkAdmin = (req, res) => {
+  const q = "SELECT * FROM admins WHERE email = ?";
+  db.query(q, [req.query.email], (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (data.length) return res.status(200).json("Logged in as admin user!");
+    return res.status(500).json("Cannot login as admin user.")
+  });
+};

@@ -6,17 +6,34 @@ import Modal from './Modal';
 import { useState, useContext } from "react";
 import axios from 'axios';
 import { AuthContext } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 
 function AdminDashboard() {
-  const {currentUser} = useContext(AuthContext);
+  const {currentUser, adminLogout} = useContext(AuthContext);
   const [rows, setRows] = useState([]);
 
   const [err, setError] = useState(null);
 
   const [users, setUsers] = useState([]);
 
+  const navigate = useNavigate();
+
   const fetchData = async () => {
+
+    try {
+      const yes = await axios.get("/admin/checkAdmin", {
+        params: {
+          email: currentUser.email,
+        }
+      });
+      setError(yes.data)
+    } catch (error) {
+      console.log("Cannot login as non-admin user")
+      await adminLogout();
+      navigate("/")
+    }
+
     try {
       const res = await axios.get("/users/all", {});
       setUsers(res.data);
